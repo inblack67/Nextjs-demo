@@ -1,7 +1,16 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
-export default function Home({ name }) {
+export default function Home({  }) {
+
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const res = fetch('/api/hello').then(data => data.json());
+    res.then(data => setName(data.name));
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -65,8 +74,8 @@ export default function Home({ name }) {
 }
 
 
-Home.getInitialProps = async () => {
-  const res = await fetch('http://localhost:3000/api/hello');
-  const json = await res.json();
-  return { name: json.name };
-}
+// Home.getInitialProps = async () => {
+//   const res = await fetch('http://localhost:3000/api/hello');
+//   const json = await res.json();
+//   return { name: json.name };
+// }
