@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({ name }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>{ name }</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -62,4 +62,11 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+
+Home.getInitialProps = async () => {
+  const res = await fetch('http://localhost:3000/api/hello');
+  const json = await res.json();
+  return { name: json.name };
 }
